@@ -8,9 +8,10 @@
  *  兼容 amd cmd 模块写法
  * */
 (function (global, factory) {
+    // 看是通过什么方式引入的     如果是 CommonJS Modules方式 则用module.exports = factory()，如果是amd方式，则用define(factory)，如果是script标签，则用global.Vue = factory()
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
         typeof define === 'function' && define.amd ? define(factory) :
-            (global.Vue = factory());
+            (global.Vue = factory()); // global.Vue = factory() 是将函数factory运行后的值赋给Vue
 }(this, (function () {
     'use strict';
 
@@ -6944,7 +6945,7 @@
         this._init(options);
     }
 
-    initMixin(Vue);    //初始化vue
+    initMixin(Vue);    //初始化vue 给Vue挂载了一个_init函数 暂不清楚_init函数干了什么
     stateMixin(Vue);  //数据绑定，$watch方法
     eventsMixin(Vue);  // 初始化事件绑定方法
     lifecycleMixin(Vue); // 初始化vue 更新 销毁 函数
