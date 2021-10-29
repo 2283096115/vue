@@ -4044,7 +4044,7 @@
         console.log("====vm.$el===");
         console.log(vm.$el);
 
-        debugger;
+        ;
         //更新虚拟dom
         vm.$el = vm.__patch__(
           vm.$el, //真正的dom
@@ -4631,7 +4631,7 @@
    */
   var Watcher = function Watcher(
     vm, //vm dom
-    expOrFn, //获取值的函数，或者是更新viwe试图函数
+    expOrFn, //获取值的函数，或者是更新viwe试图函数，或是一个data或prop中的属性key值
     cb, //回调函数,回调值给回调函数
     options, //参数
     isRenderWatcher //是否渲染过得观察者
@@ -4674,10 +4674,10 @@
     } else {
       //如果是keepAlive 组件则会走这里
       //path 因该是路由地址
-      if (bailRE.test(path)) {
-        //  匹配上 返回 true     var bailRE = /[^\w.$]/;  //匹配不是 数字字母下划线 $符号   开头的为true
-        return;
-      }
+      // if (bailRE.test(path)) {
+      //   //  匹配上 返回 true     var bailRE = /[^\w.$]/;  //匹配不是 数字字母下划线 $符号   开头的为true
+      //   return;
+      // }
 
       // //匹配不上  path在已点分割
       // var segments = path.split('.');
@@ -5399,16 +5399,17 @@
     Object.defineProperty(Vue.prototype, "$data", dataDef);
     Object.defineProperty(Vue.prototype, "$props", propsDef);
 
-    //添加多一个数组数据或者对象数据
+    //添加多一个数组数据或者对象数据,并更新视图
     Vue.prototype.$set = set;
-    //删除一个数组数据或者对象数据
+    //删除一个数组数据或者对象数据,并更新视图
     Vue.prototype.$delete = del;
 
     Vue.prototype.$watch = function (
-      expOrFn, //用户手动监听
+      expOrFn, //用户手动监听,监听
       cb, // 监听 变化之后 回调函数
       options //参数
     ) {
+      console.log('$watch---------------------------')
       var vm = this;
       if (isPlainObject(cb)) {
         //判断是否是对象 如果是对象则递归 深层 监听 直到它不是一个对象的时候才会跳出递归
@@ -9148,7 +9149,7 @@
     ) {
       console.log("===oldVnode===");
       console.log(oldVnode);
-      debugger;
+      ;
       if (isUndef(vnode)) {
         //如果没有定义新的vonde
         if (isDef(oldVnode)) {
@@ -9488,7 +9489,7 @@
    * */
 
   function updateAttrs(oldVnode, vnode) {
-    debugger;
+    ;
     var opts = vnode.componentOptions; //获取组件的拓展参数
     if (isDef(opts) && opts.Ctor.options.inheritAttrs === false) {
       // 判断是否定义有拓展参数，并且需要Ctor.options.inheritAttrs 不等于 false的 时候才执行下面的代码
@@ -11448,7 +11449,7 @@
   function getTimeout(delays, durations) {
     console.log(delays);
     console.log(durations);
-    debugger;
+    ;
     /* istanbul ignore next */
     while (delays.length < durations.length) {
       delays = delays.concat(delays);
@@ -12590,7 +12591,7 @@
     el, //真实dom 或者是string
     hydrating //新的虚拟dom vonde
   ) {
-    debugger;
+    ;
     el = el && inBrowser ? query(el) : undefined;
     return mountComponent(this, el, hydrating);
   };
@@ -15771,16 +15772,16 @@
   //匹配 配有全局匹配 只会匹配到一个
   // do,if,for,let,new,try,var,case,else,with,await,break,catch,class,const,' +
   // 'super,throw,while,yield,delete,export,import,return,switch,default,' +
-  // 'extends,finally,continue,debugger,function,arguments
+  // 'extends,finally,continue,,function,arguments
   //匹配是否含有 'do,if,for,let,new,try,var,case,else,with,await,break,catch,class,const,' +
   // 'super,throw,while,yield,delete,export,import,return,switch,default,' +
-  // 'extends,finally,continue,debugger,function,arguments'
+  // 'extends,finally,continue,,function,arguments'
   var prohibitedKeywordRE = new RegExp(
     "\\b" +
       (
         "do,if,for,let,new,try,var,case,else,with,await,break,catch,class,const," +
         "super,throw,while,yield,delete,export,import,return,switch,default," +
-        "extends,finally,continue,debugger,function,arguments"
+        "extends,finally,continue,,function,arguments"
       )
         .split(",")
         .join("\\b|\\b") +
@@ -15923,7 +15924,7 @@
       //然后在匹配
       // 'do,if,for,let,new,try,var,case,else,with,await,break,catch,class,const,' +
       // 'super,throw,while,yield,delete,export,import,return,switch,default,' +
-      // 'extends,finally,continue,debugger,function,arguments' 这些关键词
+      // 'extends,finally,continue,,function,arguments' 这些关键词
       var keywordMatch = exp
         .replace(stripStringRE, "")
         .match(prohibitedKeywordRE);

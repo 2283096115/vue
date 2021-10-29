@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    
+    <script src="../vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p v-for="item in items">{{item}}</p>
+        <button @click="btn()">添加</button>
+        <button @click="btn2()">修改</button>
+        <hr>
+        {{watch01}}
+    </div>
+  <script>
+    //    var Vue = function () {
+
+    //    }
+    //    Vue.prototype={
+    //        init:function () {
+
+    //        }
+    //    }
+    //    Vue.set = function (target,key) {
+    //        console.log(target)
+    //        console.log(key)
+    //    }
+    new Vue({
+	el:'#app',
+	data:{
+		items:['a', 'b', 'c'],
+        watch01: 'haha'
+	},
+	methods:{
+		btn(){
+			// this.items[1] = 'd'
+            // this.$set(this.items, 0, 'e')
+            // this.$delete(this.items, 0)
+            this.$watch('watch01', (newVal, oldVal) => {
+                console.log(newVal, oldVal)
+            },{deep: true, immediate: true})
+			// console.log(this.items);
+
+		},
+        btn2() {
+            this.watch01 = 'xixi'
+        }
+	}
+})
+    //    var _vue= new Vue();
+    //    _vue.name='yao guan shou ';
+  </script>
+</body>
+</html>
