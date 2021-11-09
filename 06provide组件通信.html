@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script src="vue.js"></script>
+    <script src="vue_yuan.js"></script>
 </head>
 <body>
-<div id="components-demo">
-    <button-counter id="123"></button-counter>
-</div>
-<div id="app">
+    <div id="components-demo">
+        <button-counter id="123">111</button-counter>
+    </div>
+    <div id="app">
     {{ message }}
 </div>
 
@@ -24,21 +24,20 @@
     //   console.log(person.constructor.options)
     //  console.log(Object.create(person.constructor.options));
     //    new Vue({})
-    var obj = {
-        name: 'name',
-        age: 29
-    }
-    var arr = []
-    var res = new Array(obj.length);
+    // var obj = {
+    //     name: 'name',
+    //     age: 29
+    // }
+    // var arr = []
+    // var res = new Array(obj.length);
 
-    console.log(obj.length)
-    console.log(res)
-    console.log(arr.length)
-
+    // console.log(obj.length)
+    // console.log(res)
+    // console.log(arr.length)
 
     Vue.component('button-counter', {
         props:['id'],
-        functional:true,
+        // functional:true,
         inject: ['foo'],
         data: function () {
             return {
@@ -55,8 +54,12 @@
 
     new Vue({el: '#components-demo'})
 
+
+   
+
     var app = new Vue({
         el: '#app',
+        template: '<button-counter id="123">111</button-counter>',
         provide: {
             foo: 'bar'
         },
@@ -92,6 +95,7 @@
             message: 'Hello Vue!'
         }
     })
+
 </script>
 
 </body>

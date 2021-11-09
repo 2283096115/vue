@@ -77,56 +77,58 @@
 //            message: 'Hello Vue!'
 //        }
     })
-    var app1 = new Vue({
-        comments:true,
-        el: '#app1',
-        beforeCreate(){
+//     var app1 = new Vue({
+//         comments:true,
+//         el: '#app1',
+//         beforeCreate(){
 
-        },
-        created(){
+//         },
+//         created(){
 
-        },
-        beforeMount(){
+//         },
+//         beforeMount(){
 
-        },
-        methods:{
-          click:function () {
-               console.log('点击事件')
-          }
-        },
-        mounted: function (){ //挂载元素，获取到DOM节点
-            setTimeout(()=>{
-                console.log(this.count)
-                this.count++;
-                console.log('this.count=')
-                console.log(this.count)
-            },1000)
-        },
-        computed: {
-            // 计算属性的 getter
-            reversedCount: function () {
-                // `this` 指向 vm 实例
-                return this.count++;
-            }
-        },
+//         },
+//         methods:{
+//           click:function () {
+//                console.log('点击事件')
+//           }
+//         },
+//         mounted: function (){ //挂载元素，获取到DOM节点
+//             setTimeout(()=>{
+//                 console.log(this.count)
+//                 this.count++;
+//                 console.log('this.count=')
+//                 console.log(this.count)
+//             },1000)
+//         },
+//         computed: {
+//             // 计算属性的 getter
+//             reversedCount: function () {
+//                 // `this` 指向 vm 实例
+//                 return this.count++;
+//             }
+//         },
 
-        beforeUpdate(){
+//         beforeUpdate(){
 
-        },
-        updated(){ //挂载元素，获取到DOM节点
-        },
-        beforeDestroy(){
+//         },
+//         updated(){ //挂载元素，获取到DOM节点
+//         },
+//         beforeDestroy(){
 
-        },
-        destroyed(){
+//         },
+//         destroyed(){
 
-        },
-        data: {
-            count:0,
+//         },
+//         data: {
+//             count:0,
 
-            message: 'Hello Vue!2222'
-        }
-    })
+//             message: 'Hello Vue!2222'
+//         }
+//     })
+
+
 </script>
 
 </body>
