@@ -6,11 +6,12 @@
     <script src="vue_yuan.js"></script>
 </head>
 <body>
-    <div id="components-demo">
+    <!-- <div id="components-demo">
         <button-counter id="123">111</button-counter>
-    </div>
+    </div> -->
     <div id="app">
     {{ message }}
+    <button-counter id="123">111</button-counter>
 </div>
 
 <script>
@@ -35,7 +36,26 @@
     // console.log(res)
     // console.log(arr.length)
 
-    Vue.component('button-counter', {
+    // Vue.component('button-counter', {
+    //     props:['id'],
+    //     // functional:true,
+    //     inject: ['foo'],
+    //     data: function () {
+    //         return {
+    //             count: 0
+    //         }
+    //     },
+    //     mounted: function() { //挂载元素，获取到DOM节点
+    //         console.log('==this.foo==')
+    //         console.log(this.foo)
+
+    //     },
+    //     template: '<button v-on:click="count++">You clicked me {{ count }}+{{foo}} times.</button>'
+    // })
+
+    // new Vue({el: '#components-demo'})
+
+    const buttonCounter = {
         props:['id'],
         // functional:true,
         inject: ['foo'],
@@ -44,22 +64,18 @@
                 count: 0
             }
         },
-        mounted: ()=> { //挂载元素，获取到DOM节点
+        mounted: function() { //挂载元素，获取到DOM节点
             console.log('==this.foo==')
             console.log(this.foo)
-
         },
-        template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
-    })
-
-    new Vue({el: '#components-demo'})
-
-
-   
+        template: '<button v-on:click="count++">You clicked me {{ count }}+{{foo}} times.</button>'
+    }
 
     var app = new Vue({
         el: '#app',
-        template: '<button-counter id="123">111</button-counter>',
+        components: {
+            'button-counter': buttonCounter
+        },
         provide: {
             foo: 'bar'
         },
