@@ -2177,7 +2177,7 @@
     //检查 props 数据类型
     normalizeProps(child, vm);
 
-    // 将数组转化成对象 比如 [1,2,3]转化成
+    // 将Inject数组转化成对象 比如 [1,2,3]转化成
     normalizeInject(child, vm);
 
     // * normalizeDirectives获取到指令对象值。循环对象指令的值，如果是函数则把它变成dirs[key] = {bind: def, update: def} 这种形式
@@ -2204,7 +2204,7 @@
       mergeField(key);
     }
     for (key in child) {
-      //循环子组件的
+      //循环子组件的 父组件没有，但是子组件有的属性
       if (!hasOwn(parent, key)) {
         mergeField(key);
       }
