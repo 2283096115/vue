@@ -2932,7 +2932,8 @@
       if (hasProxy) {
         // determine which proxy handler to use 确定使用哪个代理处理程序
         var options = vm.$options; //获取vm中的参数
-        //render 渲染 如果是渲染 并且含有_withStripped
+        //render 渲染 如果是渲染 并且含有_withStripped  如果是webpack打包，会有render等属性 则会采用getHandler
+        // 而在vue的render函数的内部，本质上也是调用了with语句,当调用with语句时，该作用域下变量的访问都会触发has钩子，这也是模板渲染时会触发代理拦截的原因。
         var handlers =
           options.render && options.render._withStripped
             ? getHandler //获取值
