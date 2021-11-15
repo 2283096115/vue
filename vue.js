@@ -662,7 +662,7 @@
   var bailRE = /[^\w.$]/; //匹配不是 数字字母下划线 $符号   开头的为true
 
   function parsePath(path) {
-    // console.log(path);
+    console.log(path);
 
     if (bailRE.test(path)) {
       //匹配上 返回 true
@@ -893,7 +893,7 @@
           : vm || {};
 
       var name = options.name || options._componentTag;
-      // console.log("name=" + name);
+      console.log("name=" + name);
 
       var file = options.__file;
 
@@ -933,7 +933,7 @@
         n >>= 1;
         //16 8
         //15 7 相当于除2 向下取整2的倍数
-        //// console.log(  a >>= 1)
+        //console.log(  a >>= 1)
       }
       return res;
     };
@@ -1281,18 +1281,18 @@
    ***********************************************************************************************/
 
   methodsToPatch.forEach(function (method) {
-    // console.log("methodsToPatch");
+    console.log("methodsToPatch");
 
     // cache original method
     var original = arrayProto[method];
-    // console.log("==method==");
-    // console.log(method);
-    // console.log("==original==");
-    // console.log(original);
+    console.log("==method==");
+    console.log(method);
+    console.log("==original==");
+    console.log(original);
 
     def(arrayMethods, method, function mutator() {
-      // console.log("==def_original==");
-      // console.log(original);
+      console.log("==def_original==");
+      console.log(original);
 
       var args = [],
         len = arguments.length;
@@ -1300,8 +1300,8 @@
 
       var result = original.apply(this, args);
       var ob = this.__ob__;
-      // console.log("this.__ob__");
-      // console.log(this.__ob__);
+      console.log("this.__ob__");
+      console.log(this.__ob__);
 
       var inserted;
       switch (method) {
@@ -1320,8 +1320,8 @@
       // notify change
       //更新通知
       ob.dep.notify();
-      // console.log("====result====");
-      // console.log(result);
+      console.log("====result====");
+      console.log(result);
       return result;
     });
   });
@@ -1393,8 +1393,8 @@
    */
   Observer.prototype.observeArray = function observeArray(items) {
     for (var i = 0, l = items.length; i < l; i++) {
-      // console.log("items[i]");
-      // console.log(items[i]);
+      console.log("items[i]");
+      console.log(items[i]);
 
       observe(items[i]);
     }
@@ -1448,15 +1448,15 @@
   function observe(value, asRootData) {
     if (!isObject(value) || value instanceof VNode) {
       //value 不是一个对象 或者 实例化 的VNode
-      // console.log(value);
+      console.log(value);
 
       return;
     }
     var ob;
 
     if (hasOwn(value, "__ob__") && value.__ob__ instanceof Observer) {
-      // console.log("hasOwn value");
-      // console.log(value);
+      console.log("hasOwn value");
+      console.log(value);
 
       ob = value.__ob__;
     } else if (
@@ -1466,12 +1466,12 @@
       Object.isExtensible(value) && //Object.preventExtensions(O) 方法用于锁住对象属性，使其不能够拓展，也就是不能增加新的属性，但是属性的值仍然可以更改，也可以把属性删除，Object.isExtensible用于判断对象是否可以被拓展
       !value._isVue //_isVue为假
     ) {
-      // console.log("new Observer value");
-      // console.log(value);
+      console.log("new Observer value");
+      console.log(value);
       //实例化 dep对象 为 value添加__ob__ 属性
       ob = new Observer(value);
     }
-    // console.log(value);
+    console.log(value);
     //如果是RootData，即咱们在新建Vue实例时，传到data里的值，只有RootData在每次observe的时候，会进行计数。 vmCount是用来记录此Vue实例被使用的次数的， 比如，我们有一个组件logo，页面头部和尾部都需要展示logo，都用了这个组件，那么这个时候vmCount就会计数，值为2
 
     if (asRootData && ob) {
@@ -1501,8 +1501,8 @@
     //获取描述属性
     var property = Object.getOwnPropertyDescriptor(obj, key);
     var _property = Object.getOwnPropertyNames(obj); //获取实力对象属性或者方法，包括定义的描述属性
-    // console.log(property);
-    // console.log(_property);
+    console.log(property);
+    console.log(_property);
 
     if (property && property.configurable === false) {
       return;
@@ -1511,13 +1511,13 @@
     // cater for pre-defined getter/setters
 
     var getter = property && property.get;
-    // console.log("arguments.length=" + arguments.length);
+    console.log("arguments.length=" + arguments.length);
 
     if (!getter && arguments.length === 2) {
       val = obj[key];
     }
     var setter = property && property.set;
-    // console.log(val);
+    console.log(val);
     //判断value 是否有__ob__    实例化 dep对象,获取dep对象  为 value添加__ob__ 属性递归把val添加到观察者中  返回 new Observer 实例化的对象
     var childOb = !shallow && observe(val);
     //定义描述
@@ -1560,7 +1560,7 @@
           //新的值直接给他
           val = newVal;
         }
-        // console.log(newVal);
+        console.log(newVal);
 
         //observe 添加 观察者
         childOb = !shallow && observe(newVal);
@@ -2120,14 +2120,14 @@
   function normalizeDirectives(options) {
     //获取参数中的指令
     var dirs = options.directives;
-    // console.log(options);
+    console.log(options);
 
     if (dirs) {
       //如果指令存在
       for (var key in dirs) {
         //循环该指令
         var def = dirs[key]; //获取到指令的值
-        // console.log(def);
+        console.log(def);
 
         if (typeof def === "function") {
           //如果是函数
@@ -2240,19 +2240,19 @@
     id, // 指令的key 属性
     warnMissing //警告的信息 true
   ) {
-    // console.log("==resolveAsset==");
-    // console.log(options);
-    // console.log(type);
-    // console.log(id);
-    // console.log(warnMissing);
+    console.log("==resolveAsset==");
+    console.log(options);
+    console.log(type);
+    console.log(id);
+    console.log(warnMissing);
 
     /* istanbul ignore if  如果id不是字符串 */
     if (typeof id !== "string") {
       return;
     }
     var assets = options[type]; //
-    // console.log("==assets==");
-    // console.log(assets);
+    console.log("==assets==");
+    console.log(assets);
 
     // check local registration variations first
     //首先检查本地注册的变化 检查id是否是assets 实例化的属性或者方法
@@ -2262,32 +2262,32 @@
     //   可以让这样的的属性 v-model 变成 vModel  变成驼峰
     var camelizedId = camelize(id);
 
-    // console.log("==camelizedId==");
-    // console.log(camelizedId);
+    console.log("==camelizedId==");
+    console.log(camelizedId);
 
     // 检查camelizedId是否是assets 实例化的属性或者方法
     if (hasOwn(assets, camelizedId)) {
       return assets[camelizedId];
     }
-    // console.log("==assets==");
-    // console.log(assets);
+    console.log("==assets==");
+    console.log(assets);
 
     //    将首字母变成大写 变成 VModel
     var PascalCaseId = capitalize(camelizedId);
-    // console.log("==PascalCaseId==");
-    // console.log(PascalCaseId);
+    console.log("==PascalCaseId==");
+    console.log(PascalCaseId);
     // 检查PascalCaseId是否是assets 实例化的属性或者方法
     if (hasOwn(assets, PascalCaseId)) {
       return assets[PascalCaseId];
     }
-    // console.log("==assets==");
-    // console.log(assets);
+    console.log("==assets==");
+    console.log(assets);
 
-    // console.log("==id-camelizedId-PascalCaseId==");
-    // console.log(assets);
-    // console.log(assets[id]);
-    // console.log(assets[camelizedId]);
-    // console.log(assets[PascalCaseId]);
+    console.log("==id-camelizedId-PascalCaseId==");
+    console.log(assets);
+    console.log(assets[id]);
+    console.log(assets[camelizedId]);
+    console.log(assets[PascalCaseId]);
 
     // fallback to prototype chain  回到原型链
     var res = assets[id] || assets[camelizedId] || assets[PascalCaseId];
@@ -2296,8 +2296,8 @@
     if ("development" !== "production" && warnMissing && !res) {
       warn("Failed to resolve " + type.slice(0, -1) + ": " + id, options);
     }
-    // console.log("==res==");
-    // console.log(res);
+    console.log("==res==");
+    console.log(res);
     //返回注册指令或者组建的对象
     return res;
   }
@@ -2359,14 +2359,14 @@
       // make sure to observe it. 一定要遵守。
       var prevShouldObserve = shouldObserve;
       toggleObserving(true);
-      // console.log("===value===");
-      // console.log(value);
+      console.log("===value===");
+      console.log(value);
       //为 value添加 value.__ob__  属性，把value添加到观察者中
       observe(value);
       toggleObserving(prevShouldObserve);
     }
     {
-      // console.log(prop, key, value, vm, absent);
+      console.log(prop, key, value, vm, absent);
 
       //检查prop 是否合格
       assertProp(
@@ -2657,7 +2657,7 @@
     //.slice(0) 浅拷贝
     var copies = callbacks.slice(0);
     callbacks.length = 0;
-    // console.log(copies);
+    console.log(copies);
 
     for (var i = 0; i < copies.length; i++) {
       //执行回调函数
@@ -2779,9 +2779,9 @@
         _resolve(ctx);
       }
     });
-    // console.log("==callbacks==");
-    // console.log(callbacks);
-    // console.log(pending);
+    console.log("==callbacks==");
+    console.log(callbacks);
+    console.log(pending);
 
     if (!pending) {
       pending = true;
@@ -2977,8 +2977,8 @@
    * */
   //看到这里
   function _traverse(val, seen) {
-    // console.log(val);
-    // console.log(seen.add);
+    console.log(val);
+    console.log(seen.add);
 
     var i, keys;
     //判断是否是数组
@@ -2992,7 +2992,7 @@
     ) {
       return;
     }
-    // console.log(val.__ob__);
+    console.log(val.__ob__);
 
     //如果val 有__ob__ 属性
     if (val.__ob__) {
@@ -3001,7 +3001,7 @@
       if (seen.has(depId)) {
         return;
       }
-      // console.log(seen.add);
+      console.log(seen.add);
 
       // seen 是 seenObjects = new _Set(); add 就是set对象中的add方法，添加为一的值得key
       //如果没有则添加进去
@@ -3226,7 +3226,7 @@
 
     //获取Ctor 参数中的 props
     var propOptions = Ctor.options.props; //获取组件的props属性
-    // console.log(Ctor.options);
+    console.log(Ctor.options);
 
     //如果propOptions 属性是空或者不存在 这不执行下面代码
     if (isUndef(propOptions)) {
@@ -3453,7 +3453,7 @@
         }
       }
     }
-    // console.log(res);
+    console.log(res);
 
     //返回 res 值
     return res;
@@ -3506,9 +3506,9 @@
     baseCtor, //构造函数或者vue
     context //vue实例化 对象
   ) {
-    // console.log(factory);
-    // console.log(baseCtor);
-    // console.log(context);
+    console.log(factory);
+    console.log(baseCtor);
+    console.log(context);
 
     //如果  有错误     则返回错误信息
     if (isTrue(factory.error) && isDef(factory.errorComp)) {
@@ -4025,7 +4025,7 @@
       var prevEl = vm.$el;
       //vue 的标准 vnode
       var prevVnode = vm._vnode; //标志上一个 vonde
-      // console.log(prevVnode);
+      console.log(prevVnode);
 
       var prevActiveInstance = activeInstance;
       activeInstance = vm;
@@ -4036,14 +4036,14 @@
         //如果这个prevVnode不存在表示上一次没有创建过vnode，这个组件或者new Vue 是第一次进来
         // initial render    起始指令
         //创建dmo 虚拟dom
-        // console.log("vm.$el=");
-        // console.log(vm.$el);
-        // console.log(["vnode=", vnode]);
-        // console.log(["hydrating=", hydrating]);
-        // console.log(["vm.$options._parentElm=", vm.$options._parentElm]);
-        // console.log(["vm.$options._refElm=", vm.$options._refElm]);
-        // console.log("====vm.$el===");
-        // console.log(vm.$el);
+        console.log("vm.$el=");
+        console.log(vm.$el);
+        console.log(["vnode=", vnode]);
+        console.log(["hydrating=", hydrating]);
+        console.log(["vm.$options._parentElm=", vm.$options._parentElm]);
+        console.log(["vm.$options._refElm=", vm.$options._refElm]);
+        console.log("====vm.$el===");
+        console.log(vm.$el);
 
         ;
         //更新虚拟dom
@@ -4055,8 +4055,8 @@
           vm.$options._parentElm, //父节点 空
           vm.$options._refElm //当前节点 空
         );
-        // console.log("=vm.$el=");
-        // console.log(vm.$el);
+        console.log("=vm.$el=");
+        console.log(vm.$el);
         // no need for the ref nodes after initial patch 初始补丁之后不需要ref节点
         // this prevents keeping a detached DOM tree in memory (#5851) 这可以防止在内存中保留分离的DOM树
         vm.$options._parentElm = vm.$options._refElm = null;
@@ -4067,11 +4067,11 @@
       }
       activeInstance = prevActiveInstance; //vue实例化的对象
       // update __vue__ reference 更新vue参考
-      // console.log("==prevEl==");
-      // console.log(prevEl);
-      // console.log(typeof prevEl);
-      // console.log(Object.prototype.toString.call(prevEl));
-      // console.log(vm);
+      console.log("==prevEl==");
+      console.log(prevEl);
+      console.log(typeof prevEl);
+      console.log(Object.prototype.toString.call(prevEl));
+      console.log(vm);
 
       if (prevEl) {
         prevEl.__vue__ = null;
@@ -4167,7 +4167,7 @@
     hydrating
   ) {
     vm.$el = el; //dom
-    // console.log(vm.$options.render);
+    console.log(vm.$options.render);
 
     //如果参数中没有渲染
     if (!vm.$options.render) {
@@ -4197,7 +4197,7 @@
         }
       }
     }
-
+    debugger
     //执行生命周期函数 beforeMount
     callHook(vm, "beforeMount");
     //更新组件
@@ -4224,7 +4224,7 @@
       };
     } else {
       updateComponent = function () {
-        // console.log(vm._render());
+        console.log(vm._render());
 
         //直接更新view试图
         vm._update(
@@ -4427,11 +4427,11 @@
     pushTarget();
     //在vm 中添加声明周期函数
     var handlers = vm.$options[hook];
-    // console.log("hook=" + hook);
-    // console.log("vm.$options[hook]");
-    // console.log(vm.$options[hook]);
-    // console.log("==handlers==");
-    // console.log(handlers);
+    console.log("hook=" + hook);
+    console.log("vm.$options[hook]");
+    console.log(vm.$options[hook]);
+    console.log("==handlers==");
+    console.log(handlers);
     if (handlers) {
       //数组
       for (var i = 0, j = handlers.length; i < j; i++) {
@@ -4590,7 +4590,7 @@
     if (has[id] == null) {
       has[id] = true;
       // flushing=true; //这个标志需要去掉
-      // console.log(flushing);
+      console.log(flushing);
 
       if (!flushing) {
         queue.push(watcher); //把观察者添加到队列中
@@ -4604,7 +4604,7 @@
         //根据id大小拼接插入在数组的哪个位置
         queue.splice(i + 1, 0, watcher);
       }
-      // console.log(waiting);
+      console.log(waiting);
 
       // queue the flush
       if (!waiting) {
@@ -4637,7 +4637,7 @@
     options, //参数
     isRenderWatcher //是否渲染过得观察者
   ) {
-    // console.log("====Watcher====");
+    console.log("====Watcher====");
     this.vm = vm;
     //是否是已经渲染过得观察者
     if (isRenderWatcher) {
@@ -4728,10 +4728,10 @@
     var value;
     var vm = this.vm;
     try {
-      // console.log(this.getter);
+      console.log(this.getter);
       //获取值 如果报错 则执行catch
       value = this.getter.call(vm, vm);
-      // console.log(value);
+      console.log(value);
     } catch (e) {
       if (this.user) {
         handleError(e, vm, 'getter for watcher "' + this.expression + '"');
@@ -4885,7 +4885,7 @@
     //deps=this.newDeps
     var this$1 = this;
     var i = this.deps.length;
-    // console.log("==  this.deps.length  ==");
+    console.log("==  this.deps.length  ==");
     while (i--) {
       // 为Watcher 添加dep 对象
       // this.newDeps.push(dep); //添加一个deps
@@ -4977,13 +4977,13 @@
     if (opts.data) {
       //初始化数据
       // 初始化数据 获取options.data 的数据 将他们添加到 监听者中
-      // console.log(vm);
+      console.log(vm);
 
       initData(vm);
-      // console.log(vm);
+      console.log(vm);
     } else {
-      // console.log("vm._data");
-      // console.log(vm._data);
+      console.log("vm._data");
+      console.log(vm._data);
 
       //  判断value 是否有__ob__    实例化 dep对象,获取dep对象  为 value添加__ob__ 属性，把vm._data添加到观察者中  返回 new Observer 实例化的对象
       observe((vm._data = {}), true /* asRootData */);
@@ -5128,16 +5128,16 @@
           );
       } else if (!isReserved(key)) {
         //如果不是 以$或者_开头
-        // console.log(vm);
-        // console.log(key);
+        console.log(vm);
+        console.log(key);
 
         proxy(vm, "_data", key); //把数据添加到监听者中
-        // console.log(vm);
+        console.log(vm);
       }
     }
     // observe data
-    // console.log("data");
-    // console.log(data);
+    console.log("data");
+    console.log(data);
 
     observe(data, true /* asRootData */);
   }
@@ -5394,8 +5394,8 @@
         warn("$props is readonly.", this);
       };
     }
-    // console.log("==dataDef==");
-    // console.log(dataDef);
+    console.log("==dataDef==");
+    console.log(dataDef);
 
     Object.defineProperty(Vue.prototype, "$data", dataDef);
     Object.defineProperty(Vue.prototype, "$props", propsDef);
@@ -5410,7 +5410,7 @@
       cb, // 监听 变化之后 回调函数
       options //参数
     ) {
-      // console.log('$watch---------------------------')
+      console.log('$watch---------------------------')
       var vm = this;
       if (isPlainObject(cb)) {
         //判断是否是对象 如果是对象则递归 深层 监听 直到它不是一个对象的时候才会跳出递归
@@ -5419,7 +5419,7 @@
       }
       options = options || {};
       options.user = true; //用户手动监听， 就是在 options 自定义的 watch
-      // console.log(expOrFn);
+      console.log(expOrFn);
 
       //实例化Watcher 观察者
       var watcher = new Watcher(
@@ -5894,13 +5894,8 @@
     parent, //vm vue实例化，如果parent也组件 也可能是VueComponent 构造函数 实例化的对象
     Ctor //VueComponent 构造函数
   ) {
-    // console.log([
-    //   data, // vonde 虚拟dom的属性数据
-    //   props, //props 属性
-    //   children, //子节点
-    //   parent, //vm
-    //   Ctor, //VueComponent 构造函数
-    // ]);
+    // vonde 虚拟dom的属性数据//props 属性//子节点//vm//VueComponent 构造函数
+    console.log([ data, props, children, parent,Ctor, ]);
 
     var options = Ctor.options;
     // ensure the createElement function in functional components
@@ -5908,7 +5903,7 @@
     //确保函数组件中的createElement函数
     // 获取唯一上下文——这对于正确的命名槽检查是必要的
     var contextVm;
-    // console.log(hasOwn(parent, "_uid"));
+    console.log(hasOwn(parent, "_uid"));
     if (hasOwn(parent, "_uid")) {
       //判断这个组件是否是 new _init  过
       contextVm = Object.create(parent); //创建一个对象
@@ -5991,22 +5986,22 @@
     contextVm, //vm  vue实例化对象
     children //组件子节点
   ) {
-    // console.log("==Ctor==");
-    // console.log(Ctor);
-    // console.log("==propsData==");
-    // console.log(propsData);
-    // console.log("==data==");
-    // console.log(data);
-    // console.log("==contextVm==");
-    // console.log(contextVm);
-    // console.log("==children==");
-    // console.log(children);
+    console.log("==Ctor==");
+    console.log(Ctor);
+    console.log("==propsData==");
+    console.log(propsData);
+    console.log("==data==");
+    console.log(data);
+    console.log("==contextVm==");
+    console.log(contextVm);
+    console.log("==children==");
+    console.log(children);
 
     var options = Ctor.options; //获取拓展参数
     var props = {};
     var propOptions = options.props; //获取props 参数 就是组建 定义的props 类型数据
-    // console.log("==options.props==");
-    // console.log(options.props);
+    console.log("==options.props==");
+    console.log(options.props);
 
     if (isDef(propOptions)) {
       //如果定义了props 参数
@@ -6041,7 +6036,7 @@
     // data,  // vonde 虚拟dom的数据
     // contextVm, //上下文this Vm
     // children //子节点
-    // console.log(Ctor);
+    console.log(Ctor);
     // Ctor = function VueComponent(options) {
     //     this._init(options);
     // }
@@ -6064,8 +6059,8 @@
     // slots : function ()
     // _c: function (a, b, c, d)
     // __proto__:  Object
-    // console.log("==renderContext==");
-    // console.log(renderContext);
+    console.log("==renderContext==");
+    console.log(renderContext);
 
     //创建 vnode
     var vnode = options.render.call(null, renderContext._c, renderContext);
@@ -6293,9 +6288,9 @@
       }
       return;
     }
-    // console.log(Ctor);
-    // console.log(baseCtor);
-    // console.log(context);
+    console.log(Ctor);
+    console.log(baseCtor);
+    console.log(context);
 
     // async component
     //异步组件
@@ -6340,7 +6335,7 @@
     }
 
     data = data || {};
-    // console.log(Ctor);
+    console.log(Ctor);
 
     // resolve constructor options in case global mixins are applied after
     // component constructor creation
@@ -6356,9 +6351,9 @@
       //如果定义有 model 转义 model 并且绑定 v-model
       transformModel(Ctor.options, data);
     }
-    // console.log(data);
-    // console.log(Ctor);
-    // console.log(tag);
+    console.log(data);
+    console.log(Ctor);
+    console.log(tag);
 
     // extract props  从…提取，文件的摘录 extractPropsFromVNodeData 从 props属性中获取vnode数据
     var propsData = extractPropsFromVNodeData(
@@ -6409,24 +6404,18 @@
 
     // install component management hooks onto the placeholder node
     //将组件管理钩子安装到占位符节点上
-    // console.log(data);
+    console.log(data);
 
     installComponentHooks(data);
 
     // return a placeholder vnode
     var name = Ctor.options.name || tag;
 
-    // console.log("vue-component-" + Ctor.cid + (name ? "-" + name : ""));
-    // console.log(data);
-    // console.log(context);
-    // console.log({
-    //   Ctor: Ctor,
-    //   propsData: propsData,
-    //   listeners: listeners,
-    //   tag: tag,
-    //   children: children,
-    // });
-    // console.log(asyncFactory);
+    console.log("vue-component-" + Ctor.cid + (name ? "-" + name : ""));
+    console.log(data);
+    console.log(context);
+    console.log({ Ctor: Ctor, propsData: propsData, listeners: listeners, tag: tag, children: children, });
+    console.log(asyncFactory);
 
     var vnode = new VNode(
       "vue-component-" + Ctor.cid + (name ? "-" + name : ""),
@@ -6449,8 +6438,8 @@
     // extracting cell-slot template.
     // https://github.com/Hanks10100/weex-native-directive/tree/master/component
     /* istanbul ignore if */
-    // console.log("===vnode===");
-    // console.log(vnode);
+    console.log("===vnode===");
+    console.log(vnode);
     return vnode;
   }
 
@@ -6488,8 +6477,8 @@
       var key = hooksToMerge[i];
       hooks[key] = componentVNodeHooks[key]; //组建钩子函数
     }
-    // console.log("==hooks==");
-    // console.log(hooks);
+    console.log("==hooks==");
+    console.log(hooks);
   }
 
   // transform component v-model info (value and callback) into
@@ -6536,7 +6525,7 @@
     normalizationType, //应该设置为常量ALWAYS_NORMALIZE的值
     alwaysNormalize //布尔值 是否是真的是true
   ) {
-    // console.log(data);
+    console.log(data);
 
     //如果数据是数组  或者是  //判断数据类型是否是string，number，symbol，boolean
     if (Array.isArray(data) || isPrimitive(data)) {
@@ -6678,8 +6667,8 @@
         isDef((Ctor = resolveAsset(context.$options, "components", tag)))
       ) {
         // component  如果有则创建一个组件
-        // console.log("===Ctor===");
-        // console.log(Ctor); //获取到 VueComponent 构造函数 sup类
+        console.log("===Ctor===");
+        console.log(Ctor); //获取到 VueComponent 构造函数 sup类
 
         //Ctor是VueComponent 组件构造函数
         //创建一个组件  调用6000多行的createComponent
@@ -6801,10 +6790,10 @@
     //内部版本由模板编译的呈现函数使用
     //创建虚拟dom的数据结构
     vm._c = function (a, b, c, d) {
-      // console.log(a);
-      // console.log(b);
-      // console.log(c);
-      // console.log(d);
+      console.log(a);
+      console.log(b);
+      console.log(c);
+      console.log(d);
 
       return createElement(
         vm, //vm  new Vue 实例化的对象
@@ -6874,6 +6863,7 @@
                    with(this){return _c('div',{attrs:{"id":"app"}},[_c('input',{directives:[{name:"info",rawName:"v-info"},{name:"data",rawName:"v-data"}],attrs:{"type":"text"}}),_v(" "),_m(0)])}
              })
              */
+      console.log('ref.render', ref.render)
       var render = ref.render;
       var _parentVnode = ref._parentVnode;
 
@@ -6919,7 +6909,7 @@
           vm._renderProxy, //this指向 其实就是vm
           vm.$createElement //这里虽然传参进去但是没有接收参数
         );
-        // console.log(vnode);
+        console.log(vnode);
       } catch (e) {
         //收集错误信息 并抛出
         handleError(e, vm, "render");
@@ -7020,7 +7010,6 @@
       initState(vm); //    //初始化状态
       initProvide(vm); // resolve provide after data/props  解决后提供数据/道具  provide 选项应该是一个对象或返回一个对象的函数。该对象包含可注入其子孙的属性，用于组件之间通信。
       callHook(vm, "created"); //触发created钩子函数
-
       /* istanbul ignore if */
       //浏览器 性能监听
       if ("development" !== "production" && config.performance && mark) {
@@ -7242,8 +7231,8 @@
       }
       //实例化 组件 对象
       var Sub = function VueComponent(options) {
-        // console.log("==this._init");
-        // console.log(this._init);
+        console.log("==this._init");
+        console.log(this._init);
 
         // vue中的_init 函数   Vue.prototype._init
         this._init(options);
@@ -7296,7 +7285,7 @@
       // enable recursive self-lookup 使递归self-lookup
       if (name) {
         //如果组件含有名称 则 把这个对象存到 组件名称中, 在options拓展参数的原型中能获取到该数据
-        // console.log(name);
+        console.log(name);
 
         Sub.options.components[name] = Sub;
       }
@@ -7313,7 +7302,7 @@
 
       // cache constructor
       cachedCtors[SuperId] = Sub; // 当前缓存的构造函数
-      // console.log(cachedCtors);
+      console.log(cachedCtors);
 
       return Sub;
     };
@@ -7358,7 +7347,7 @@
         id, //id
         definition //new Vue拓展参数对象
       ) {
-        // console.log(definition);
+        console.log(definition);
 
         if (!definition) {
           //如果definition不存在
@@ -8185,12 +8174,12 @@
          directives //自定义指令 创建 ，更新，销毁函数
          ]
          */
-    // console.log(backend);
+    console.log(backend);
 
     var i, j;
     var cbs = {};
-    // console.log("==backend==");
-    // console.log(backend);
+    console.log("==backend==");
+    console.log(backend);
     var modules = backend.modules;
     var nodeOps = backend.nodeOps;
 
@@ -8303,7 +8292,7 @@
       ownerArray, //主数组 节点
       index //索引
     ) {
-      // console.log(vnode);
+      console.log(vnode);
       //判断是否定义有vnode.elm 和 定义有ownerArray
       if (isDef(vnode.elm) && isDef(ownerArray)) {
         // This vnode was used in a previous render!
@@ -8340,7 +8329,7 @@
 
       if (isDef(tag)) {
         //如果组件标签定义了
-        // console.log(vnode);
+        console.log(vnode);
 
         {
           if (data && data.pre) {
@@ -8364,7 +8353,7 @@
           ? nodeOps.createElementNS(vnode.ns, tag) //   字符串值，可为此元素节点规定命名空间的名称。 可能是svg 或者 math 节点
           : nodeOps.createElement(tag, vnode); //html创建一个dom 节点
         setScope(vnode); //设置样式的作用域
-        // console.log("====tag====" + tag);
+        console.log("====tag====" + tag);
 
         /* istanbul ignore if */
         {
@@ -8407,14 +8396,14 @@
       refElm //当前节点 dom
     ) {
       var i = vnode.data; //标签 dom 中的属性 或者是组件
-      // console.log(i);
+      console.log(i);
 
       if (isDef(i)) {
         //如果i有定义
         var isReactivated = isDef(vnode.componentInstance) && i.keepAlive; //如果已经实例化过，并且是keepAlive组件
         if (isDef((i = i.hook)) && isDef((i = i.init))) {
           //触发钩子函数。或者init，
-          // console.log(i);
+          console.log(i);
 
           i(vnode, false /* hydrating */, parentElm, refElm);
         }
@@ -8544,8 +8533,8 @@
       children, //子节点
       insertedVnodeQueue //插入Vnode队列
     ) {
-      // console.log("==children==");
-      // console.log(children);
+      console.log("==children==");
+      console.log(children);
 
       if (Array.isArray(children)) {
         //如果children 是数组
@@ -8604,13 +8593,13 @@
       // remove:Array(1)
       // update:Array(7)
       // __proto__:Object
-      // console.log("==cbs.create==");
-      // console.log(cbs);
+      console.log("==cbs.create==");
+      console.log(cbs);
       for (var i$1 = 0; i$1 < cbs.create.length; ++i$1) {
         cbs.create[i$1](emptyNode, vnode);
       }
       i = vnode.data.hook; // Reuse variable 如果他是组件
-      // console.log(i);
+      console.log(i);
       // 如果是组件则调用componentVNodeHooks中的 create
       if (isDef(i)) {
         if (isDef(i.create)) {
@@ -9148,8 +9137,8 @@
       parentElm, //父节点 真实的dom
       refElm //当前节点 真实的dom
     ) {
-      // console.log("===oldVnode===");
-      // console.log(oldVnode);
+      console.log("===oldVnode===");
+      console.log(oldVnode);
       ;
       if (isUndef(vnode)) {
         //如果没有定义新的vonde
@@ -9305,8 +9294,8 @@
     var isCreate = oldVnode === emptyNode; // 判断旧的指令是否等于一个空的指令
     var isDestroy = vnode === emptyNode; // 判断现在指令是否等于一个空的指令
     //指令字符串                 vm this上下文
-    // console.log(oldVnode);
-    // console.log(vnode);
+    console.log(oldVnode);
+    console.log(vnode);
     //规范化的指令，为指令属性修正变成规范的指令数据。返回指令数据集合
     var oldDirs = normalizeDirectives$1(
       oldVnode.data.directives, //vonde指令对象集合
@@ -9324,7 +9313,7 @@
     var key, oldDir, dir;
     for (key in newDirs) {
       //循环新的指令集合
-      // console.log(newDirs[key]);
+      console.log(newDirs[key]);
 
       oldDir = oldDirs[key]; //获取旧的单个指令值
       dir = newDirs[key]; //获取新的单个指令值
@@ -9443,7 +9432,7 @@
     //rawName 视图中的 指令如 <div v-hello></div>  就是v-hello
     //name 视图中的 指令如 <div v-hello></div>  就是hello
     //modifiers 修饰符
-    // console.log(dir);
+    console.log(dir);
 
     return (
       dir.rawName || dir.name + "." + Object.keys(dir.modifiers || {}).join(".")
@@ -9684,7 +9673,7 @@
    * 表达式中的过滤器解析 方法
    * @param {*} exp
    */
-  // console.log(parseFilters(" ab | c | d")); //转化成 _f("d")(_f("c")(ab))
+  console.log(parseFilters(" ab | c | d")); //转化成 _f("d")(_f("c")(ab))
   function parseFilters(exp) {
     // 是否在 ''中
     var inSingle = false;
@@ -9706,28 +9695,20 @@
     for (i = 0; i < exp.length; i++) {
       prev = c;
       c = exp.charCodeAt(i);
-      // console.log("c =" + exp[i]);
-      // console.log("c === 0x7C=" + (c === 0x7c));
+      console.log("c =" + exp[i]);
+      console.log("c === 0x7C=" + (c === 0x7c));
     //   console.log(
     //     "exp.charCodeAt(i + 1) !== 0x7C=" + (exp.charCodeAt(i + 1) !== 0x7c)
     //   );
     //   console.log(
     //     "exp.charCodeAt(i - 1) !== 0x7C=" + (exp.charCodeAt(i - 1) !== 0x7c)
     //   );
-      // console.log("curly=" + curly);
-      // console.log("!curly=" + !curly);
-      // console.log("square=" + square);
-      // console.log("!square=" + !square);
-      // console.log("!paren=" + !paren);
-      // console.log(
-    //     "最后一个=" +
-    //       (c === 0x7c && // pipe
-    //         exp.charCodeAt(i + 1) !== 0x7c &&
-    //         exp.charCodeAt(i - 1) !== 0x7c &&
-    //         !curly &&
-    //         !square &&
-    //         !paren)
-    //   );
+      console.log("curly=" + curly);
+      console.log("!curly=" + !curly);
+      console.log("square=" + square);
+      console.log("!square=" + !square);
+      console.log("!paren=" + !paren);
+      console.log( "最后一个=" + (c === 0x7c &&  exp.charCodeAt(i + 1) !== 0x7c && exp.charCodeAt(i - 1) !== 0x7c && !curly && !square && !paren) );
 
       if (inSingle) {
         //  '  \
@@ -9777,7 +9758,7 @@
           lastFilterIndex = i + 1;
           // 存储过滤器的 表达式
           expression = exp.slice(0, i).trim(); //这里匹配如果字符串是 'ab|c' 则把ab匹配出来
-          // console.log(expression);
+          console.log(expression);
         } else {
           pushFilter();
         }
@@ -9851,13 +9832,13 @@
     }
 
     if (filters) {
-      // console.log(filters);
+      console.log(filters);
       for (i = 0; i < filters.length; i++) {
         //把过滤器封装成函数 虚拟dom需要渲染的函数
         expression = wrapFilter(expression, filters[i]);
       }
     }
-    // console.log(expression);
+    console.log(expression);
 
     //返回值
     return expression;
@@ -9875,23 +9856,23 @@
      * @param {string} filter
      * @returns {string}
      */
-  // console.log(wrapFilter("abc", "defg(hijk)")); //结果 _f("defg")(abc,hijk)
+  console.log(wrapFilter("abc", "defg(hijk)")); //结果 _f("defg")(abc,hijk)
   function wrapFilter(exp, filter) {
     var i = filter.indexOf("("); //返回字符串第一次出现索引的位置
-    // console.log("i=" + i);
+    console.log("i=" + i);
     if (i < 0) {
       // _f: resolveFilter
       return '_f("' + filter + '")(' + exp + ")"; //闭包
     } else {
       //name 是 从字符串开始到(结束的字符串,不包含(
       var name = filter.slice(0, i); //截取字符串 arrayObject.slice(start,end)
-      // console.log("==name==");
-      // console.log(name);
+      console.log("==name==");
+      console.log(name);
 
       //args是从(开始匹配，到字符串末端，不包含(
       var args = filter.slice(i + 1); //如果 end 未被规定，那么 slice() 方法会选取从 start 到数组结尾的所有元素。
-      // console.log("==args==");
-      // console.log(args);
+      console.log("==args==");
+      console.log(args);
       return '_f("' + name + '")(' + exp + (args !== ")" ? "," + args : args);
     }
   }
@@ -10067,15 +10048,15 @@
     var dynamicValue =
       getAndRemoveAttr(el, ":" + name) ||
       getAndRemoveAttr(el, "v-bind:" + name);
-    // console.log(el);
-    // console.log(dynamicValue);
+    console.log(el);
+    console.log(dynamicValue);
     if (dynamicValue != null) {
       /*
        *处理value 解析成正确的value，把过滤器 转换成vue 虚拟dom的解析方法函数 比如把过滤器 ' ab | c | d' 转换成 _f("d")(_f("c")(ab))
        * 表达式中的过滤器解析 方法
        */
       let parseFiltersValue = parseFilters(dynamicValue);
-      // console.log(parseFiltersValue);
+      console.log(parseFiltersValue);
       return parseFiltersValue;
     } else if (getStatic !== false) {
       //移除传进来的属性name，并且返回获取到 属性的值
@@ -10164,10 +10145,10 @@
       value, //绑定v-model 的属性值
       valueExpression //值
     );
-    // console.log(value);
-    // console.log(valueExpression);
-    // console.log(baseValueExpression);
-    // console.log(assignment);
+    console.log(value);
+    console.log(valueExpression);
+    console.log(baseValueExpression);
+    console.log(assignment);
 
     //如果 trim不存在，number 不存在 则 valueExpression 默认为$$v
     //回调函数是 $set(object[info],key,$$v) 更新$$v的值
@@ -10227,14 +10208,14 @@
   var expressionPos; //匹配到   符号 [ 的开始索引
   var expressionEndPos; // 如果匹配上一对 [] 的时候就跳出循环  则是匹配
 
-  // console.log(parseModel("object"));
-  // console.log(parseModel("object[info][name]"));
-  // console.log(parseModel("object.info.name"));
-  // console.log(parseModel("test[key]"));
-  // console.log(parseModel("test[test1[key]]"));
-  // console.log(parseModel('test["a"][key]'));
-  // console.log(parseModel("xxx.test[a[a].test1[key]]"));
-  // console.log(parseModel('test.xxx.a["asa"][test1[key]]'));
+  console.log(parseModel("object"));
+  console.log(parseModel("object[info][name]"));
+  console.log(parseModel("object.info.name"));
+  console.log(parseModel("test[key]"));
+  console.log(parseModel("test[test1[key]]"));
+  console.log(parseModel('test["a"][key]'));
+  console.log(parseModel("xxx.test[a[a].test1[key]]"));
+  console.log(parseModel('test.xxx.a["asa"][test1[key]]'));
 
   //转义字符串对象拆分字符串对象  把后一位key分离出来
   // 两种情况分析1 如果数据是object.info.name的情况下 则返回是 {exp: "object.info",key: "name"}
@@ -10362,8 +10343,8 @@
     dir, // v-model 属性的key和值
     _warn //警告日志函数
   ) {
-    // console.log(el);
-    // console.log(dir);
+    console.log(el);
+    console.log(dir);
     // {name: "model"
     //     rawName: "v-model"
     //     value: "item.url"}
@@ -10438,7 +10419,7 @@
     value, //v-model view的属性值
     modifiers
   ) {
-    // console.log(el);
+    console.log(el);
 
     var number = modifiers && modifiers.number;
     var valueBinding = getBindingAttr(el, "value") || "null"; //获取 表单的 value属性值 如果 view 是 value="1"
@@ -10450,19 +10431,7 @@
          *  Array.isArray(item.selected)?_i(item.selected,"index")>-1:(item.selected)
          * */
 
-    // console.log(
-    //   "Array.isArray(" +
-    //     value +
-    //     ")" +
-    //     "?_i(" +
-    //     value +
-    //     "," +
-    //     valueBinding +
-    //     ")>-1" +
-    //     (trueValueBinding === "true"
-    //       ? ":(" + value + ")"
-    //       : ":_q(" + value + "," + trueValueBinding + ")")
-    // );
+    console.log(  "Array.isArray(" + value + ")" + "?_i(" + value + "," + valueBinding + ")>-1" + (trueValueBinding === "true" ? ":(" + value + ")" : ":_q(" + value + "," + trueValueBinding + ")") );
 
     //在虚拟dom中添加prop属性
     addProp(
@@ -10602,7 +10571,7 @@
       (number ? "_n(val)" : "val") +
       "" +
       "})";
-    // console.log(selectedVal);
+    console.log(selectedVal);
 
     var assignment =
       "$event.target.multiple ? $$selectedVal : $$selectedVal[0]";
@@ -10634,8 +10603,8 @@
     value, //属性在view 的值
     modifiers //标签类型对象  修饰符
   ) {
-    // console.log(el);
-    // console.log(value);
+    console.log(el);
+    console.log(value);
 
     var type = el.attrsMap.type; //获取类型
 
@@ -10953,12 +10922,12 @@
     var res = {};
     var listDelimiter = /;(?![^(]*\))/g; //匹配字符串中的 ;符号。但是不属于 (;)的 符号 如果是括号中的;不能匹配出来
     var propertyDelimiter = /:(.+)/; //:+任何字符串
-    // console.log(cssText.split(listDelimiter));
+    console.log(cssText.split(listDelimiter));
 
     cssText.split(listDelimiter).forEach(function (item) {
       if (item) {
         var tmp = item.split(propertyDelimiter);
-        // console.log(tmp);
+        console.log(tmp);
 
         tmp.length > 1 && (res[tmp[0].trim()] = tmp[1].trim());
       }
@@ -10966,7 +10935,7 @@
     return res;
   });
 
-  // console.log(parseStyleText("width:100px;(height:200px);"));
+  console.log(parseStyleText("width:100px;(height:200px);"));
 
   // merge static and dynamic style data on the same vnode
   //在同一个vnode上合并静态和动态样式数据
@@ -11385,8 +11354,8 @@
     // 该对象在应用活动样式表并解析这些值可能包含的任何基本计算后报告元素的所有CSS属性的值
     // 私有的CSS属性值可以通过对象提供的API或通过简单地使用CSS属性名称进行索引来访问。
     var styles = window.getComputedStyle(el); //
-    // console.log("==styles==");
-    // console.log(styles);
+    console.log("==styles==");
+    console.log(styles);
     //          var transitionProp = 'transition';
     var transitionDelays = styles[transitionProp + "Delay"].split(", "); //获取动画时间
     var transitionDurations = styles[transitionProp + "Duration"].split(", "); //获取动画时间
@@ -11395,12 +11364,12 @@
     var animationDelays = styles[animationProp + "Delay"].split(", "); //获取动画时间
     var animationDurations = styles[animationProp + "Duration"].split(", "); //获取动画时间
     var animationTimeout = getTimeout(animationDelays, animationDurations); //获取动画时间
-    // console.log("transitionDelays=" + transitionDelays);
-    // console.log("transitionDurations=" + transitionDurations);
-    // console.log("transitionTimeout=" + transitionTimeout);
-    // console.log("animationDelays=" + animationDelays);
-    // console.log("animationDurations=" + animationDurations);
-    // console.log("animationTimeout=" + animationTimeout);
+    console.log("transitionDelays=" + transitionDelays);
+    console.log("transitionDurations=" + transitionDurations);
+    console.log("transitionTimeout=" + transitionTimeout);
+    console.log("animationDelays=" + animationDelays);
+    console.log("animationDurations=" + animationDurations);
+    console.log("animationTimeout=" + animationTimeout);
 
     var type; //动画类型
     var timeout = 0; //动画时长
@@ -11437,7 +11406,7 @@
     var hasTransform =
       type === TRANSITION &&
       transformRE.test(styles[transitionProp + "Property"]);
-    // console.log(styles[transitionProp + "Property"]); //获取动画设置在哪些属性上面
+    console.log(styles[transitionProp + "Property"]); //获取动画设置在哪些属性上面
 
     return {
       type: type, //过度或者css3动画类型
@@ -11448,8 +11417,8 @@
   }
 
   function getTimeout(delays, durations) {
-    // console.log(delays);
-    // console.log(durations);
+    console.log(delays);
+    console.log(durations);
     ;
     /* istanbul ignore next */
     while (delays.length < durations.length) {
@@ -11479,8 +11448,8 @@
     }
     //resolveTransition 解析vonde中的transition的name属性获取到一个css过度对象类
     var data = resolveTransition(vnode.data.transition);
-    // console.log(vnode.data.transition);
-    // console.log(data);
+    console.log(vnode.data.transition);
+    console.log(data);
 
     if (isUndef(data)) {
       return;
@@ -11642,7 +11611,7 @@
       //为真实dom添加class类
       addTransitionClass(el, activeClass);
       nextFrame(function () {
-        // console.log("nextFrame");
+        console.log("nextFrame");
 
         removeTransitionClass(el, startClass); //执行过了就删除class类
         if (!cb.cancelled) {
@@ -11950,8 +11919,8 @@
     nodeOps: nodeOps,
     modules: modules,
   });
-  // console.log("===patch==");
-  // console.log(patch);
+  console.log("===patch==");
+  console.log(patch);
 
   /**
    * Not type checking this file because flow doesn't like attaching
@@ -12659,10 +12628,10 @@
     var match, index, tokenValue;
     while ((match = tagRE.exec(text))) {
       //循环能匹配上的指令，全局匹配代码：的时候会有个lastIndex  执行exec方法后，lastIndex就会记录匹配的字符串在原始字符串中最后一位的索引加一，
-      // console.log("match=");
-      // console.log(match);
-      // console.log("match.index=" + match.index);
-      // console.log("lastIndex=" + lastIndex);
+      console.log("match=");
+      console.log(match);
+      console.log("match.index=" + match.index);
+      console.log("lastIndex=" + lastIndex);
       index = match.index; //当前匹配上的字符串位置，也可以是上一次匹配出来的位置
       // push text token
       if (index > lastIndex) {
@@ -12677,8 +12646,8 @@
       rawTokens.push({ "@binding": exp }); //绑定指令{{name}} 指令转换成  [{@binding: "name"}]
       lastIndex = index + match[0].length; // 上一次匹配出来的字符串的位置+上一次字符串的长度  比如字符串   我叫{{name}},今年{{age}},数据{{data.number}}个手机  这时候lastIndex 等于10
     }
-    // console.log(lastIndex);
-    // console.log(text.length);
+    console.log(lastIndex);
+    console.log(text.length);
     if (lastIndex < text.length) {
       //拼接最后一个字符， 数据{{data.number}}个手机    把个手机 的字符串连接起来
       rawTokens.push((tokenValue = text.slice(lastIndex))); //截取字符串。到最后一位
@@ -12690,8 +12659,8 @@
     };
   }
 
-  // console.log(parseText("我叫{{name}},今年{{age}},数据{{data.number}}个手机"));
-  //    // console.log(parseText('{{name}}这个'))
+  console.log(parseText("我叫{{name}},今年{{age}},数据{{data.number}}个手机"));
+  //    console.log(parseText('{{name}}这个'))
 
   /*
    * 获取 class 属性和:class或者v-bind的动态属性值，并且转化成字符串 添加到staticClass和classBinding 属性中
@@ -12908,8 +12877,8 @@
     value, //标签中属性的值
     shouldDecodeNewlines //状态布尔值 标志。判断是否是a标签和是ie浏览器还是谷歌浏览器
   ) {
-    // console.log(value);
-    // console.log(shouldDecodeNewlines);
+    console.log(value);
+    console.log(shouldDecodeNewlines);
 
     var re = shouldDecodeNewlines
       ? encodedAttrWithNewLines //匹配 &lt或&gt或&quot或&amp或&#10或&#9
@@ -12932,7 +12901,7 @@
     var index = 0;
     var last, //
       lastTag; //
-    // console.log(html);
+    console.log(html);
 
     while (html) {
       //循环html
@@ -12952,7 +12921,7 @@
 
             if (commentEnd >= 0) {
               //如果注释标签结束标签位置大于0，则有注释内容
-              // console.log(html.substring(4, commentEnd));
+              console.log(html.substring(4, commentEnd));
               if (options.shouldKeepComment) {
                 //shouldKeepComment为真时候。获取注释标签内容
 
@@ -12995,8 +12964,8 @@
             var curIndex = index;
             //标签分隔函数 while 跳出循环就是靠该函数，每次匹配到之后就截取掉字符串，知道最后一个标签被截取完没有匹配到则跳出循环
             advance(endTagMatch[0].length);
-            // console.log(endTagMatch);
-            // console.log(curIndex, index);
+            console.log(endTagMatch);
+            console.log(curIndex, index);
             //查找parseHTML的stack栈中与当前tagName标签名称相等的标签，
             //调用options.end函数，删除当前节点的子节点中的最后一个如果是空格或者空的文本节点则删除，
             //为stack出栈一个当前标签，为currentParent变量获取到当前节点的父节点
@@ -13028,7 +12997,7 @@
           next = void 0;
         if (textEnd >= 0) {
           rest = html.slice(textEnd); //截取字符串  var textEnd = html.indexOf('<'); //匹配开始标签或者结束标签的位置
-          // console.log(rest);
+          console.log(rest);
 
           while (
             !endTag.test(rest) && //匹配开头必需是</ 后面可以忽略是任何字符串
@@ -13036,7 +13005,7 @@
             !comment.test(rest) && // 匹配 开始字符串为<!--任何字符串
             !conditionalComment.test(rest) //匹配开始为 <![ 字符串
           ) {
-            // console.log(rest);
+            console.log(rest);
 
             // < in plain text, be forgiving and treat it as text
             // <在纯文本中，要宽容，把它当作文本来对待
@@ -13116,8 +13085,8 @@
     //获取开始标签的名称，收集属性集合，开始位置和结束位置，并且返回该对象
     function parseStartTag() {
       var start = html.match(startTagOpen); //匹配开始标签 匹配开头必需是< 后面可以忽略是任何字符串  ^<((?:[a-zA-Z_][\\w\\-\\.]*\\:)?[a-zA-Z_][\\w\\-\\.]*)
-      // console.log(start);
-      // console.log(start[0].length);
+      console.log(start);
+      console.log(start[0].length);
 
       if (start) {
         var match = {
@@ -13133,14 +13102,14 @@
           !(end = html.match(startTagClose)) && //没有到 关闭标签 > 标签
           (attr = html.match(attribute)) //收集属性
         ) {
-          // console.log(html);
+          console.log(html);
           //截取属性标签
           advance(attr[0].length);
           match.attrs.push(attr); //把属性收集到一个集合
         }
         if (end) {
           match.unarySlash = end[1]; //如果是/>标签 则unarySlash 是/。 如果是>标签 则unarySlash 是空
-          // console.log(end);
+          console.log(end);
 
           //截取掉开始标签，并且更新索引
           advance(end[0].length);
@@ -13166,10 +13135,10 @@
 
       var tagName = match.tagName; //开始标签名称
       var unarySlash = match.unarySlash; //如果是/>标签 则unarySlash 是/。 如果是>标签 则unarySlash 是空
-      // console.log(expectHTML);
-      // console.log("lastTag==");
-      // console.log(lastTag);
-      // console.log(tagName);
+      console.log(expectHTML);
+      console.log("lastTag==");
+      console.log(lastTag);
+      console.log(tagName);
 
       if (expectHTML) {
         //true
@@ -13240,8 +13209,8 @@
         };
       }
 
-      // console.log("==!unary==");
-      // console.log(!unary);
+      console.log("==!unary==");
+      console.log(!unary);
 
       if (!unary) {
         //如果不是单标签
@@ -13255,8 +13224,8 @@
         });
         //设置结束标签
         lastTag = tagName;
-        // console.log("== parseHTML handleStartTag stack==");
-        // console.log(stack);
+        console.log("== parseHTML handleStartTag stack==");
+        console.log(stack);
       }
 
       //
@@ -13318,7 +13287,7 @@
       if (pos >= 0) {
         //这里就获取到了stack堆栈的pos索引
         // Close all the open elements, up the stack 关闭所有打开的元素，向上堆栈
-        // console.log(pos);
+        console.log(pos);
 
         for (var i = stack.length - 1; i >= pos; i--) {
           if (
@@ -13329,7 +13298,7 @@
             options.warn("tag <" + stack[i].tag + "> has no matching end tag.");
           }
           if (options.end) {
-            // console.log(options.end);
+            console.log(options.end);
             //调用options.end函数，删除当前节点的子节点中的最后一个如果是空格或者空的文本节点则删除，
             //为stack出栈一个当前标签，为currentParent变量获取到当前节点的父节点
             options.end(
@@ -13341,13 +13310,13 @@
         }
         // Remove the open elements from the stack
         //从堆栈中删除打开的元素
-        // // console.log(stack[pos].tag)
+        // console.log(stack[pos].tag)
         // 为parseHTML 节点标签堆栈 出桟当前匹配到的标签
         stack.length = pos;
         //获取到上一个标签，就是当前节点的父节点
         lastTag = pos && stack[pos - 1].tag;
-        // console.log(stack);
-        // console.log(lastTag);
+        console.log(stack);
+        console.log(lastTag);
       } else if (lowerCasedTagName === "br") {
         if (options.start) {
           //标签开始函数， 创建一个ast标签dom，  判断获取v-for属性是否存在如果有则转义 v-for指令 把for，alias，iterator1，iterator2属性添加到虚拟dom中
@@ -13374,7 +13343,7 @@
           options.end(tagName, start, end);
         }
       }
-      // console.log(lastTag);
+      console.log(lastTag);
     }
   }
 
@@ -13461,8 +13430,8 @@
     preTransforms = pluckModuleFunction(options.modules, "preTransformNode");
     //循环过滤数组或者对象的值，根据key循环 过滤对象或者数组[key]值，如果不存在则丢弃，如果有相同多个的key值，返回多个值的数组
     postTransforms = pluckModuleFunction(options.modules, "postTransformNode");
-    // console.log("==options==");
-    // console.log(options);
+    console.log("==options==");
+    console.log(options);
 
     /*
          拿到 key transforms值的函数
@@ -13471,16 +13440,16 @@
                transformNode$1 //函数  transformNode$1获取 style属性和:style或者v-bind的动态属性值，并且转化成字符串 添加到staticStyle和styleBinding属性中
         * ]
         * */
-    // console.log("==transforms==");
-    // console.log(transforms);
+    console.log("==transforms==");
+    console.log(transforms);
     /*
          拿到 key preTransforms值的函数
          * preTransforms=[
                   preTransformNode //     preTransformNode把attrsMap与attrsList属性值转换添加到el   ast虚拟dom中为虚拟dom添加for，alias，iterator1，iterator2， addRawAttr ，type ，key， ref，slotName或者slotScope或者slot，component或者inlineTemplate ， plain，if ，else，elseif 属性
          * ]
          * */
-    // console.log("==preTransforms==");
-    // console.log(preTransforms);
+    console.log("==preTransforms==");
+    console.log(preTransforms);
 
     /*
          拿到 key postTransforms值的函数
@@ -13488,8 +13457,8 @@
 
          * ]
          * */
-    // console.log("==postTransforms==");
-    // console.log(postTransforms);
+    console.log("==postTransforms==");
+    console.log(postTransforms);
 
     //改变纯文本插入分隔符。修改指令的书写风格，比如默认是{{mgs}}  delimiters: ['${', '}']之后变成这样 ${mgs}
     delimiters = options.delimiters;
@@ -13501,7 +13470,7 @@
     var inVPre = false; //标记 标签是否还有 v-pre 指令，如果没有则是false
     var inPre = false; //  判断标签是否是pre 如果是则返回真
     var warned = false;
-    // console.log(currentParent);
+    console.log(currentParent);
 
     function warnOnce(msg) {
       if (!warned) {
@@ -13521,14 +13490,14 @@
         //  判断标签是否是pre 如果是则返回真
         inPre = false; //  判断标签是否是pre 如果是则返回真
       }
-      // console.log(postTransforms);
+      console.log(postTransforms);
 
       // apply post-transforms 应用转化后 postTransforms数组为空所以不执行这里
       for (var i = 0; i < postTransforms.length; i++) {
         postTransforms[i](element, options);
       }
     }
-    // console.log(currentParent);
+    console.log(currentParent);
 
     parseHTML(
       template, //字符串模板
@@ -13565,7 +13534,7 @@
           }
 
           //转换属性，把数组属性转换成对象属性，返回对象 AST元素
-          // console.log(currentParent);
+          console.log(currentParent);
           //创建一个ast标签dom
           var element = createASTElement(tag, attrs, currentParent);
 
@@ -13596,7 +13565,7 @@
             //     preTransformNode把attrsMap与attrsList属性值转换添加到el   ast虚拟dom中为虚拟dom添加for，alias，iterator1，iterator2， addRawAttr ，type ，key， ref，slotName或者slotScope或者slot，component或者inlineTemplate ， plain，if ，else，elseif 属性
             element = preTransforms[i](element, options) || element;
           }
-          // console.log(element);
+          console.log(element);
 
           if (!inVPre) {
             //如果  标签 没有 v-pre 指令
@@ -13627,7 +13596,7 @@
             //校验属性的值，为el添加muted， events，nativeEvents，directives，  key， ref，slotName或者slotScope或者slot，component或者inlineTemplate 标志 属性
             processElement(element, options);
           }
-          // console.log(element);
+          console.log(element);
 
           //检查根约束 根节点不能是slot或者template标签，并且不能含有v-for 属性
           function checkRootConstraints(el) {
@@ -13705,34 +13674,34 @@
           // var unary = isUnaryTag$$1(tagName) || //函数匹配标签是否是 'area,base,br,col,embed,frame,hr,img,input,isindex,keygen, link,meta,param,source,track,wbr'
           //     !!unarySlash; //如果是/> 则为真
           //如果当前标签不是单标签，也不是闭合标签，就标志当前currentParent 是当前标签
-          // console.log(stack);
+          console.log(stack);
 
           if (!unary) {
             currentParent = element;
             //为parse函数 stack标签堆栈 添加一个标签
             stack.push(element);
 
-            // console.log("== start stack==");
-            // console.log(stack);
+            console.log("== start stack==");
+            console.log(stack);
           } else {
             //克隆节点
             closeElement(element);
           }
-          // console.log("===start===");
-          // console.log(stack);
+          console.log("===start===");
+          console.log(stack);
         },
 
         //删除当前节点的子节点中的最后一个如果是空格或者空的文本节点则删除，
         //为stack出栈一个当前标签，为currentParent变量获取到当前节点的父节点
         end: function end() {
-          // console.log("end");
+          console.log("end");
 
           // remove trailing whitespace 删除尾随空格
           //取到栈中最后一位数据 如果标签是这样 <div><span><i></i></span></div> 则这里会先是i 先进后出
           //parse函数 标签堆栈，出栈一个当前标签，为currentParent变量获取到当前节点的父节点
           var element = stack[stack.length - 1];
 
-          // console.log(element);
+          console.log(element);
 
           var lastNode = element.children[element.children.length - 1];
           if (
@@ -13748,15 +13717,15 @@
           stack.length -= 1;
           //获取当前节点的父节点标签
           currentParent = stack[stack.length - 1];
-          // console.log(stack);
+          console.log(stack);
 
           //克隆节点
           closeElement(element);
         },
         //把text添加到属性节点或者添加到注释节点，ast模板数据
         chars: function chars(text) {
-          // console.log("chars");
-          // console.log(currentParent);
+          console.log("chars");
+          console.log(currentParent);
 
           //判断是否有当前的父节点
           if (!currentParent) {
@@ -13804,7 +13773,7 @@
               (res = parseText(text, delimiters)) //匹配view 指令，并且把他转换成 虚拟dom vonde 需要渲染的函数,比如指令{{name}}转换成 _s(name)
               //比如字符串  我叫{{name}},今年{{age}},数据{{data.number}}个手机  转换成 我叫+_s(name)+,今年+_s(age)+,数据+_s(data.number)+个手机
             ) {
-              // console.log(res);
+              console.log(res);
 
               children.push({
                 //添加为属性节点
@@ -13828,9 +13797,9 @@
         },
         //把text添加到属性节点或者添加到注释节点，ast模板数据
         comment: function comment(text) {
-          // console.log("comment");
+          console.log("comment");
 
-          // console.log(currentParent);
+          console.log(currentParent);
 
           currentParent.children.push({
             type: 3, //注释节点
@@ -13928,7 +13897,7 @@
     var exp;
     //获取v-for指令 属性
     if ((exp = getAndRemoveAttr(el, "v-for"))) {
-      // console.log(exp);
+      console.log(exp);
 
       //转换 for指令 获取 for中的key  返回一个res对象为{for:data字符串，alias：value字符串，iterator1:key字符串，iterator2:index字符串}
       var res = parseFor(exp);
@@ -13952,7 +13921,7 @@
       return;
     }
     var res = {};
-    // console.log(inMatch);
+    console.log(inMatch);
 
     res.for = inMatch[2].trim(); //获取到数据 data 字符串
     var alias = inMatch[1].trim().replace(stripParensRE, ""); //去除括号 比如(value, key, index) in data 变成 value, key, index
@@ -13961,7 +13930,7 @@
 
     if (iteratorMatch) {
       res.alias = alias.replace(forIteratorRE, ""); // value , key , index 去掉 ,+字符串 获得value 字符串
-      // console.log(res.alias);
+      console.log(res.alias);
 
       res.iterator1 = iteratorMatch[1].trim(); //获取第二个字符串  key
       if (iteratorMatch[2]) {
@@ -14209,12 +14178,12 @@
           // v-on   判断是否是 @或者v-on:属性开头的
 
           name = name.replace(onRE, "");
-          // console.log(name);
-          // console.log(value);
-          // console.log(modifiers);
-          // console.log(false);
-          // console.log(warn$2);
-          // console.log(el);
+          console.log(name);
+          console.log(value);
+          console.log(modifiers);
+          console.log(false);
+          console.log(warn$2);
+          console.log(el);
 
           addHandler(
             el, //虚拟dom
@@ -14224,7 +14193,7 @@
             false,
             warn$2 //警告的日志
           );
-          // console.log(el);
+          console.log(el);
         } else {
           // normal directives 正常的指令
           //一般也不会进来这里 因为前面已经匹配了  :或者v-bind  @或者v-on:属性 开头的，所以进来这里的就是自定义指令
@@ -14243,12 +14212,12 @@
                                                                                                   name = name.slice(0, index+ 1); // 截取name 取得abc
                                                                                              }
                                                                                             */
-          // console.log(el);
-          // console.log(name);
-          // console.log(rawName);
-          // console.log(value);
-          // console.log(arg);
-          // console.log(modifiers);
+          console.log(el);
+          console.log(name);
+          console.log(rawName);
+          console.log(value);
+          console.log(arg);
+          console.log(modifiers);
 
           //为虚拟dom 添加一个 指令directives属性 对象
           addDirective(
@@ -14608,8 +14577,8 @@
     staticKeys: genStaticKeys(modules$1), // * 把数组对象 [{ staticKeys:1},{staticKeys:2},{staticKeys:3}]连接数组对象中的 staticKeys key值，连接成一个字符串 str=‘1,2,3’
   };
 
-  // console.log("==baseOptions==");
-  // console.log(baseOptions);
+  console.log("==baseOptions==");
+  console.log(baseOptions);
 
   /*  */
 
@@ -15022,9 +14991,9 @@
 
     //获取到一个数组，数组中有两个函数genData和genData$1
     this.dataGenFns = pluckModuleFunction(options.modules, "genData");
-    // console.log(this.transforms);
-    // console.log(this.dataGenFns);
-    // console.log(options);
+    console.log(this.transforms);
+    console.log(this.dataGenFns);
+    console.log(options);
 
     // options.directives= {
     //          model: model, //根据判断虚拟dom的标签类型是什么？给相应的标签绑定 相应的 v-model 双数据绑定代码函数
@@ -15077,10 +15046,7 @@
     var state = new CodegenState(options);
     //根据el判断是否是组件，或者是否含有v-once，v-if,v-for,是否有template属性，或者是slot插槽，转换style，css等转换成虚拟dom需要渲染的参数函数
     var code = ast ? genElement(ast, state) : '_c("div")';
-    // console.log({
-    //   render: "with(this){return " + code + "}",
-    //   staticRenderFns: state.staticRenderFns,
-    // });
+    console.log({ render: "with(this){return " + code + "}", staticRenderFns: state.staticRenderFns, });
 
     return {
       //with 绑定js的this 缩写
@@ -15094,8 +15060,8 @@
     el, //ast对象或者虚拟dom
     state //渲染虚拟dom的一些方法
   ) {
-    // console.log(state);
-    // console.log(el);
+    console.log(state);
+    console.log(el);
 
     if (el.staticRoot && !el.staticProcessed) {
       //将子节点导出虚拟dom 渲染函数的参数形式。静态渲染
@@ -15224,8 +15190,8 @@
     altGen, // 不知道干嘛的
     altEmpty // 不知道干嘛的
   ) {
-    // console.log("==el==");
-    // console.log(el);
+    console.log("==el==");
+    console.log(el);
 
     el.ifProcessed = true; // avoid recursion 标记已经处理过 避免递归
     //el.ifConditions.slice() if条件参数
@@ -15246,8 +15212,8 @@
     }
 
     var condition = conditions.shift(); //取第一个元素
-    // console.log("==condition==");
-    // console.log(condition);
+    console.log("==condition==");
+    console.log(condition);
     if (condition.exp) {
       //判断if指令参数是否存在 如果存在则递归condition.block 数据此时ifProcessed 变为true 下次不会再进来
 
@@ -15266,8 +15232,8 @@
     // v-if with v-once should generate code like (a)?_m(0):_m(1)
     //如果用v-once生成像(a)?_m(0):_m(1)这样的代码
     function genTernaryExp(el) {
-      // console.log("==altGen==");
-      // console.log(altGen);
+      console.log("==altGen==");
+      console.log(altGen);
       //数据此时ifProcessed 变为true 下次不会再进来
       return altGen
         ? altGen(el, state) //altGen 一个自定义函数吧
@@ -15441,16 +15407,16 @@
     //     modifiers
     // );
 
-    // console.log(dirs);
+    console.log(dirs);
 
     for (i = 0, l = dirs.length; i < l; i++) {
       //一个虚拟dom可能会有能绑定多个指令
       dir = dirs[i];
-      // console.log(dir);
+      console.log(dir);
 
       needRuntime = true;
       var gen = state.directives[dir.name];
-      // console.log(gen);
+      console.log(gen);
 
       if (gen) {
         // compile-time directive that manipulates AST.
@@ -15480,7 +15446,7 @@
     }
     if (hasRuntime) {
       res = res.slice(0, -1) + "]";
-      // console.log(res);
+      console.log(res);
 
       return res;
     }
@@ -16046,7 +16012,7 @@
         template, //模板字符串
         options //参数
       );
-      // console.log(compiled);
+      console.log(compiled);
 
       // check compilation errors/tips
       {
@@ -16128,23 +16094,23 @@
   function createCompilerCreator(
     baseCompile //基本的编译函数
   ) {
-    // console.log(baseCompile);
+    console.log(baseCompile);
 
     return function createCompiler(baseOptions) {
-      // console.log(baseOptions);
+      console.log(baseOptions);
 
       function compile(
         template, //字符串模板
         options //options 参数
       ) {
-        // console.log(options);
+        console.log(options);
 
         //template 模板  options 参数
         // 创建一个对象 拷贝baseOptions 拷贝到 原型 protype 中
         var finalOptions = Object.create(baseOptions); //为虚拟dom添加基本需要的属性
-        // console.log(finalOptions);
-        // console.log(finalOptions.__proto__);
-        // console.log(finalOptions.property);
+        console.log(finalOptions);
+        console.log(finalOptions.__proto__);
+        console.log(finalOptions.property);
 
         var errors = [];
         var tips = [];
@@ -16154,7 +16120,7 @@
         };
 
         if (options) {
-          // console.log(options);
+          console.log(options);
 
           // merge custom modules
           //baseOptions中的modules参数为
@@ -16187,7 +16153,7 @@
               options.directives
             );
           }
-          // console.log(options);
+          console.log(options);
 
           // options 为：
 
@@ -16271,7 +16237,7 @@
                                                                             comments: options.comments //当设为 true 时，将会保留且渲染模板中的 HTML 注释。默认行为是舍弃它们。
                                                                             },
                                                                 */
-      // console.log(options);
+      console.log(options);
 
       //返回ast模板对象
       var ast = parse(template.trim(), options);
@@ -16346,7 +16312,7 @@
   Vue.prototype.$mount = function (el, hydrating) {
     //重写Vue.prototype.$mount
 
-    el = el && query(el); //获取dom
+    el = el && query(el); //获取dom,真实dom
     /* istanbul ignore if */
     //如果el 是body 或者文档 则警告
     if (el === document.body || el === document.documentElement) {
@@ -16372,10 +16338,10 @@
 
           //模板第一个字符串为# 则判断该字符串为 dom的id
           if (template.charAt(0) === "#") {
-            // console.log(template);
+            console.log(template);
 
             template = idToTemplate(template); //获取字符串模板的innerHtml
-            // console.log(template);
+            console.log(template);
 
             /* istanbul ignore if */
             if ("development" !== "production" && !template) {
@@ -16398,7 +16364,7 @@
       } else if (el) {
         //如果模板没有，dom节点存在则获取dom节点中的html 给模板
         template = getOuterHTML(el);
-        // console.log(template);
+        console.log(template);
       }
       if (template) {
         /* istanbul ignore if */
@@ -16407,8 +16373,8 @@
           mark("compile");
         }
         //创建模板
-        // console.log("==options.comments==");
-        // console.log(options.comments);
+        console.log("==options.comments==");
+        console.log(options.comments);
 
         var ref = compileToFunctions(
           template, //模板字符串
@@ -16422,10 +16388,10 @@
         );
         // res.render = createFunction(compiled.render, fnGenErrors);
         //获取编译函数 是将字符串转化成真正js的函数
-        // console.log("==ref.render==");
-        // console.log(ref.render);
-        // console.log(ref);
-        // console.log("==ref.render-end==");
+        console.log("==ref.render==");
+        console.log(ref.render);
+        console.log(ref);
+        console.log("==ref.render-end==");
         // res.render = createFunction(compiled.render, fnGenErrors);
         // //字符串转化js 创建一个集合函数
         // res.staticRenderFns = compiled.staticRenderFns.map(function (code) {
@@ -16448,8 +16414,8 @@
                */
         options.render = render;
         options.staticRenderFns = staticRenderFns;
-        // console.log(options);
-        // console.log(options.render);
+        console.log(options);
+        console.log(options.render);
 
         /* istanbul ignore if */
         if ("development" !== "production" && config.performance && mark) {
@@ -16458,9 +16424,9 @@
         }
       }
     }
-    // console.log(render);
-    // console.log(el);
-    // console.log(hydrating);
+    console.log(render);
+    console.log(el);
+    console.log(hydrating);
 
     //执行$mount方法 一共执行了两次 第一次是在9000多行那一个  用$mount的方法把扩展挂载到dom上
     return mount.call(
