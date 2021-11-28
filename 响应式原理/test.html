@@ -8,7 +8,7 @@
     <script src="./vue.js"></script>
 </head>
 <body>
-    <h1 id="name">{{name}}</h1>
+    <h1 id="app">{{name}}</h1>
 
     
     <script type="text/javascript">
@@ -17,13 +17,21 @@
         //     name: 'hello world'
         // }, ele, exp: 'name'});
         var selfVue = new SelfVue({
-            name: 'hello world'
-        }, ele, 'name');
-     
+            el: '#app',
+            data: {
+                title: 'hello world',
+                name: ''
+            }
+        });
+        
+        window.setTimeout(function () {
+            selfVue.title = '你好';
+        }, 2000);
+
         window.setTimeout(function () {
             console.log('name值改变了');
             selfVue.name = 'canfoo';
-        }, 2000);
+        }, 2500);
      
     </script>
 </body>
