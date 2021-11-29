@@ -4,12 +4,14 @@ function defineReactive(data, key, val) {
     Object.defineProperty(data, key, {
         enumerable: true,
         configurable: true,
+        // 一个属性可能多个地方都会用到，所以要放到dep中，以数组的方式保存起来，当值修改的时候，通知所有订阅者更新数据
         get: function() {
             if (Dep.target) {  // 判断是否需要添加订阅者
                 dep.addSub(Dep.target); // 在这里添加一个订阅者
             }
             return val;
         },
+        // 发现数据发生改变，修改数据，通知所有订阅者，并执行对应的函数
         set: function(newVal) {
             if (val === newVal) {
                 return;
@@ -94,7 +96,7 @@ function SelfVue (options) {
     // new Watcher(this, exp, function (value) {
     //     el.innerHTML = value;
     // });
-    return this;
+    // return this;
 }
 
 SelfVue.prototype = {
