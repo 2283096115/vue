@@ -4197,7 +4197,6 @@
         }
       }
     }
-    debugger
     //执行生命周期函数 beforeMount
     callHook(vm, "beforeMount");
     //更新组件
@@ -11356,6 +11355,7 @@
     var styles = window.getComputedStyle(el); //
     console.log("==styles==");
     console.log(styles);
+    
     //          var transitionProp = 'transition';
     var transitionDelays = styles[transitionProp + "Delay"].split(", "); //获取动画时间
     var transitionDurations = styles[transitionProp + "Duration"].split(", "); //获取动画时间
@@ -11612,6 +11612,7 @@
       addTransitionClass(el, activeClass);
       nextFrame(function () {
         console.log("nextFrame");
+        debugger
 
         removeTransitionClass(el, startClass); //执行过了就删除class类
         if (!cb.cancelled) {
@@ -12218,6 +12219,7 @@
     render: function render(h) {
       //动画组件的vonde
       var this$1 = this;
+      
 
       var children = this.$slots.default;
       if (!children) {
